@@ -1,5 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "swiper/css/pagination";
+@import "swiper/css/scrollbar";
+@import "swiper/css";
+@import "swiper/css/effect-coverflow";
 /* @import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;800;900&display=swap);
 
 body {
@@ -126,4 +130,7 @@ body {
 .main-container {
   max-width: 1185px;
   margin: 0 auto;
+}
+.header_form_width {
+  width: 100% !important;
 }

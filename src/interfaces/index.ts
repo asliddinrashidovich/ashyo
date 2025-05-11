@@ -5,3 +5,14 @@ export interface sliderDataType {
     paragraph: string
     link: string
 }
+
+export interface heroCategoriesData {
+    createdAt: string
+    icon: string
+    _id: number
+    image: string
+    name: string
+    // parentCategoryId: 
+    // subCategories
+    updatedAt: string
+}

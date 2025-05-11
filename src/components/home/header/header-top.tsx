@@ -3,7 +3,7 @@ import { GrLocation } from "react-icons/gr";
 
 function HeaderTop() {
   return (
-    <header className="bg-[#EBEFF3] py-[10px] px-5 md:px-10">
+    <header className="bg-[#EBEFF3] py-[10px] px-5 md:px-10 hidden sm:inline-block w-full">
       <div className="main-container flex items-center justify-between">
         <div className="flex gap-7 items-center">
           <div className="flex gap-[11px] items-end">
