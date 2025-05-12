@@ -1,9 +1,10 @@
-import { HeaderSlider } from "@/components"
+import { Brands, HeaderSlider } from "@/components"
 
 function HomePage() {
   return (
     <>
       <HeaderSlider/>
+      <Brands/>
     </>
   )
 }
