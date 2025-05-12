@@ -14,3 +14,27 @@ export interface heroCategoriesData {
     name: string
     updatedAt: string
 }
+
+export interface Iproduct {
+    brand_id: string
+    category: {
+        id: number
+        name: string
+        image: string
+        icon: string
+        parentCategoryId: null
+    }
+    category_id: string
+    createdAt: string
+    description: string
+    id: number
+    image: string
+    is_aksiya: boolean
+    is_liked: boolean
+    name: string
+    nasiya: string
+    price: number
+    rating: number
+    summary: string
+    updatedAt: string
+}
