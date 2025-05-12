@@ -3,10 +3,18 @@ import { Input } from "@/components/ui/input"
 import { Link } from "react-router-dom"
 import { IoSearchOutline } from "react-icons/io5";
 import { FaBars } from "react-icons/fa6";
+import { useState } from "react";
 
 function Header() {
+  const [openSidebar, setOpenSideBar] = useState(false)
+  function handleOpen() {
+    setOpenSideBar(true)
+  }
+  function handleClose() {
+    setOpenSideBar(false)
+  }
   return (
-    <div className="bg-[#fff] py-[17px] px-5 md:px-10">
+    <div className="bg-[#fff] py-[17px] px-5 md:px-10 relative">
       <div className="max-w-[1185px] mx-auto flex items-center justify-between md:gap-[50px] pb-[10px] lg:pb-0">
         <Link to={'/'} className="flex items-center lg:w-[300px] translate-x-[-17px]">
           <img src="/home/header/ashyo_logo.svg" alt="ashyo logo" />
@@ -41,7 +49,7 @@ function Header() {
             <img src="/home/header/ashyo_user.svg" alt="law" />
           </Link>
         </div>
-        <button className="md:hidden flex">
+        <button onClick={handleOpen} className="md:hidden flex cursor-pointer">
           <FaBars className="text-[20px]"/>
         </button>
       </div>
@@ -57,6 +65,40 @@ function Header() {
           </form>
         </div>
       </div>
+
+      {/* Sidebar  */}
+      {<div className={`fixed top-0 ${openSidebar ? "translate-x-0" : "translate-x-[100%]"} transition-liniar duration-200  right-0 bottom-0 bg-[#fff] w-[40%] z-30 `}>
+        <div className="w-full h-[120px] bg-[#00000040] flex items-center px-[20px]">
+          <div className="w-[80px] h-[80px] rounded-full bg-[#fff]">
+
+          </div>
+        </div>
+        <div className="p-[20px] flex gap-[13px] flex-col">
+          <Link to={'/'} className="rounded-[6px] w-[100%] flex gap-[7px] justify-start p-[15px] items-center bg-[#EBEFF3] relative">
+            <img src="/home/header/law.svg" alt="law" />
+            <h3 className="text-[#545d6a]">Compare</h3>
+            <h2 className="absolute w-5 h-5 bg-[#E81504] text-[#fff] flex items-center justify-center rounded-full font-[700] text-[10px] top-[-8px] right-[-8px]">0</h2>
+          </Link>
+          <Link to={'/'} className="rounded-[6px] w-[100%] flex gap-[7px] justify-start p-[15px] items-center bg-[#EBEFF3] relative">
+            <img src="/home/header/heart.svg" alt="law" />
+            <h3 className="text-[#545d6a]">Wishlist</h3>
+            <h2 className="absolute w-5 h-5 bg-[#E81504] text-[#fff] flex items-center justify-center rounded-full font-[700] text-[10px] top-[-8px] right-[-8px]">0</h2>
+          </Link>
+          <Link to={'/'} className="rounded-[6px] w-[100%] flex gap-[7px] justify-start p-[15px] items-center bg-[#EBEFF3] relative">
+            <img src="/home/header/shopping-bag.svg" alt="law" />
+            <h3 className="text-[#545d6a]">Cart</h3>
+            <h2 className="absolute w-5 h-5 bg-[#E81504] text-[#fff] flex items-center justify-center rounded-full font-[700] text-[10px] top-[-8px] right-[-8px]">0</h2>
+          </Link>
+          <Link to={'/'} className="rounded-[6px] w-[100%] flex gap-[7px] justify-start p-[15px] items-center bg-[#EBEFF3] relative">
+            <img src="/home/header/ashyo_user.svg" alt="law" />
+            <h3 className="text-[#545d6a]">Profile</h3>
+          </Link>
+        </div>
+          
+      </div>}
+      {openSidebar && <div onClick={handleClose} className="fixed top-0 left-0 bottom-0 bg-black/70 w-[100%] brightness-50 z-20">
+
+      </div>}
     </div>
   )
 }

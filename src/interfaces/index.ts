@@ -12,7 +12,5 @@ export interface heroCategoriesData {
     _id: number
     image: string
     name: string
-    // parentCategoryId: 
-    // subCategories
     updatedAt: string
 }
