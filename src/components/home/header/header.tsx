@@ -3,18 +3,72 @@ import { Input } from "@/components/ui/input"
 import { Link } from "react-router-dom"
 import { IoSearchOutline } from "react-icons/io5";
 import { FaBars } from "react-icons/fa6";
-import { useState } from "react";
+import { useState } from 'react';
+import { Modal } from 'antd';
+import { Box, Tab, Tabs } from "@mui/material";
+import FormLogin from "@/components/auth/form-login";
+import {Toaster} from "react-hot-toast"
+import FormRegister from "@/components/auth/form-register";
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+function CustomTabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
 
 function Header() {
-  const [openSidebar, setOpenSideBar] = useState(false)
+  const [openSidebar, setOpenSideBar] = useState<boolean>(false)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [tabVlue, setTabValue] = useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   function handleOpen() {
     setOpenSideBar(true)
   }
   function handleClose() {
     setOpenSideBar(false)
   }
+
   return (
     <div className="bg-[#fff] py-[17px] px-5 md:px-10 relative">
+      <div><Toaster
+        position="top-right"
+        reverseOrder={false}
+      /></div>
       <div className="max-w-[1185px] mx-auto flex items-center justify-between md:gap-[50px] pb-[10px] lg:pb-0">
         <Link to={'/'} className="flex items-center lg:w-[300px] translate-x-[-17px]">
           <img src="/home/header/ashyo_logo.svg" alt="ashyo logo" />
@@ -45,9 +99,33 @@ function Header() {
             <img src="/home/header/shopping-bag.svg" alt="law" />
             <h2 className="absolute w-5 h-5 bg-[#E81504] text-[#fff] flex items-center justify-center rounded-full font-[700] text-[10px] top-[-8px] right-[-8px]">0</h2>
           </Link>
-          <Link to={'/'} className="rounded-[6px] w-[50px] h-12 flex justify-center items-center bg-[#EBEFF3] ">
-            <img src="/home/header/ashyo_user.svg" alt="law" />
-          </Link>
+          <button onClick={showModal} className="rounded-[6px] cursor-pointer w-[50px] h-12 flex justify-center items-center bg-[#EBEFF3] ">
+            <img className="translate-x-[15%]" src="/home/header/ashyo_user.svg" alt="law" />
+          </button>
+          {/* login modal lg */}
+          <Modal
+            // title="Basic Modal"
+            closable={{ 'aria-label': 'Custom Close Button' }}
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={null}
+          >
+            <Box sx={{ width: '100%' }}>
+              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs value={tabVlue} onChange={handleChange} aria-label="basic tabs example w-full text-center">
+                  <Tab label="Login" {...a11yProps(0)} />
+                  <Tab label="Register" {...a11yProps(1)} />
+                </Tabs>
+              </Box>
+              <CustomTabPanel value={tabVlue} index={0}>
+                <FormLogin setIsModalOpen={setIsModalOpen}/>
+              </CustomTabPanel>
+              <CustomTabPanel value={tabVlue} index={1}>
+                <FormRegister setIsModalOpen={setIsModalOpen}/>
+              </CustomTabPanel>
+            </Box>
+          </Modal>
         </div>
         <button onClick={handleOpen} className="md:hidden flex cursor-pointer">
           <FaBars className="text-[20px]"/>
