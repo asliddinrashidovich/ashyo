@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { IoSearchOutline } from "react-icons/io5";
 import { FaBars } from "react-icons/fa6";
 import { useState } from 'react';
@@ -42,12 +42,18 @@ function Header() {
   const [openSidebar, setOpenSideBar] = useState<boolean>(false)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [tabVlue, setTabValue] = useState(0);
+  const token = localStorage.getItem('token')
+  const navigate = useNavigate()
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
   const showModal = () => {
-    setIsModalOpen(true);
+    if(token) {
+      navigate('/profile')
+    } else{
+      setIsModalOpen(true);
+    }
   };
   const handleOk = () => {
     setIsModalOpen(false);
