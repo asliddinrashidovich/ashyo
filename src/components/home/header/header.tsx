@@ -47,6 +47,7 @@ function Header() {
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
+    console.log(event)
   };
   const showModal = () => {
     if(token) {
