@@ -24,11 +24,11 @@ function Footer() {
                 <h2 className="text-[#000000B2] text-[20px] font-[700] leading-[130%] mb-[12px]">Mobil ilovani yuklab oling</h2>
                 <div className="flex gap-[12px]">
                     <div className="flex items-center py-[17px] px-[30px] bg-[#EBEFF3] rounded-[10px] gap-[12px] cursor-pointer">
-                        <img src="../../../../public/home/footer/logos_apple-app-store.svg" alt="app store" />
+                        <img src="/home/footer/logos_apple-app-store.svg" alt="app store" />
                         <h2 className="text-[#0A1729] text-[16px] font-[700] leading-[110%]">App Store </h2>
                     </div>
                     <div className="flex items-center py-[17px] px-[30px] bg-[#EBEFF3] rounded-[10px] gap-[12px] cursor-pointer">
-                        <img src="../../../../public/home/footer/logos_google-play-icon.svg" alt="app store" />
+                        <img src="/home/footer/logos_google-play-icon.svg" alt="app store" />
                         <h2 className="text-[#0A1729] text-[16px] font-[700] leading-[110%]">Google Play </h2>
                     </div>
                 </div>
