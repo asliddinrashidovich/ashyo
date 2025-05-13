@@ -10,9 +10,9 @@ function FilterSection() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [value, setValue] = React.useState<number[]>([20, 37]);
 
-    const handleChange = (event: Event, newValue: number[]) => {
+    const handleChange = (_event: Event, newValue: number[]) => {
         setValue(newValue);
-    };
+    }
 
     function handleChangeBrand(path: string) {
         searchParams.set('brand', path)
