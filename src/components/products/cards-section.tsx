@@ -4,6 +4,10 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { Iproduct } from "@/interfaces";
 
+interface ProductsResponse {
+  items: Iproduct[];
+}
+
 function CardsSection() {
     const [searchParams] = useSearchParams()
     const paramsBrand = Number(searchParams.get('brand')) || ""
@@ -12,7 +16,7 @@ function CardsSection() {
         return res.data;
     };
 
-    const { data: productsData} = useQuery({
+    const { data: productsData} = useQuery<ProductsResponse>({
         queryKey: ["productsQuery", paramsBrand],
         queryFn: fetchCategoryProducts,
     });
@@ -20,7 +24,7 @@ function CardsSection() {
   return ( 
     <div className="w-full md:w-[calc(100%-220px)] lg:w-[calc(100%-280px)] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-[30px] gap-y-[40px]">
         {productsData?.items?.map((item: Iproduct) => (
-            <div>
+            <div key={item.id}>
                 <div className="bg-[#EBEFF3] relative rounded-[8px] w-full h-[280px] mb-[16px] flex justify-center items-center hover">
                     <img className="max-w-[200px]" src={item.image} alt={item.image}/>
                     <button className="cursor-pointer absolute top-5 right-6">
