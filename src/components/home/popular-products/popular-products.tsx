@@ -26,7 +26,7 @@ export default function ReletedProductsData() {
         <div className="swiper-button-next absolute right-[-10px] top-[40%] z-10 cursor-pointer">
             <img src="/home/popular/next.svg" alt="next button" />
         </div>
-        <div className='max-w-[1185px] mx-auto'>
+        <div className='max-w-[1185px] mx-auto px-5'>
             <h2 className='text-[32px] font-[700] leading-[130%] mb-[50px]'>Most popular product</h2>
         </div>
       <Swiper
