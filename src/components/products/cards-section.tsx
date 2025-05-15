@@ -2,11 +2,7 @@ import { Link, useSearchParams } from "react-router-dom"
 import { FaRegHeart } from "react-icons/fa6";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { Iproduct } from "@/interfaces";
-
-interface ProductsResponse {
-  items: Iproduct[];
-}
+import { Iproduct, ProductsResponse } from "@/interfaces";
 
 function CardsSection() {
     const [searchParams] = useSearchParams()
@@ -20,7 +16,6 @@ function CardsSection() {
         queryKey: ["productsQuery", paramsBrand],
         queryFn: fetchCategoryProducts,
     });
-    console.log(productsData)
   return ( 
     <div className="w-full md:w-[calc(100%-220px)] lg:w-[calc(100%-280px)] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-[30px] gap-y-[40px]">
         {productsData?.items?.map((item: Iproduct) => (

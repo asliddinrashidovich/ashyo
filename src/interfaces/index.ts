@@ -38,3 +38,17 @@ export interface Iproduct {
     summary: string
     updatedAt: string
 }
+
+export interface Ibrands {
+    createdAt: string
+    icon: string
+    id: number
+    image: string
+    name: string
+    parentCategoryId: null
+    updatedAt: string
+}
+
+export interface ProductsResponse {
+  items: Iproduct[];
+}
