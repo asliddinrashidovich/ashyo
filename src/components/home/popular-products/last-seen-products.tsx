@@ -2,22 +2,35 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 // import required modules
 import { FreeMode, Navigation, Pagination } from 'swiper/modules';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Iproduct, ProductsResponse } from '@/interfaces';
 import { FaRegHeart } from 'react-icons/fa6';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 export default function LastSeenProducts() {
+    const navigate = useNavigate()
+    function handleClick(id: number) {
+        navigate(`/products/${id}`)
+    }
     const fetchCategoryProducts = async () => {
         const res = await axios.get(`https://api.ashyo.fullstackdev.uz/products`);
         return res.data;
     };
 
-    const { data: productsData} = useQuery<ProductsResponse>({
-        queryKey: ["productsQuery"],
+    const { data: productsData, isLoading: loading} = useQuery<ProductsResponse>({
+        queryKey: ["productsQueryLast"],
         queryFn: fetchCategoryProducts,
     });
+    console.log("asdfasdf", productsData)
+
+    if(loading) {
+        return (
+            <>
+                <h1>loading</h1>
+            </>
+        )
+    }
   return (
     <div className="relative overflow-hidden pb-[80px]">
         <div className="swiper-button-prev absolute left-[-10px] top-[40%] z-10 cursor-pointer">
@@ -61,14 +74,14 @@ export default function LastSeenProducts() {
         
        {productsData?.items?.map((item: Iproduct) => (
             <SwiperSlide key={item.id}>
-                <div key={item.id} className='user-none '>
-                    <div className="bg-[#EBEFF3] relative rounded-[8px] w-full h-[280px] mb-[16px] flex justify-center items-center hover">
-                        <img className="max-w-[200px]" src={item.image} alt={item.image}/>
+                <div key={item.id} className='user-none group'>
+                    <div onClick={() => handleClick(item.id)} className="bg-[#EBEFF3] relative rounded-[8px] w-full h-[280px] mb-[16px] flex cursor-pointer justify-center items-center hover">
+                        <img className="max-w-[200px] group-hover:scale-[105%] transition-all duration-200" src={item.image} alt={item.image}/>
                         <button className="cursor-pointer absolute top-5 right-6">
                             <FaRegHeart className="text-[25px] text-[#545D6A]"/>
                         </button>
                     </div>
-                    <p className="mb-[28px] text-[14px] font-[400] leading-[19px] text-[#545D6A] line-clamp-2">{item.description}</p>
+                    <p onClick={() => handleClick(item.id)} className="cursor-pointer hover:underline mb-[28px] text-[14px] font-[400] leading-[19px] text-[#545D6A] line-clamp-2">{item.description}</p>
                     <div className="flex gap-[10px] items-end justify-between">
                         <div>
                             <h2 className="mb-[10px] text-[#0A1729] text-[20px] font-[700] leading-[26px]">{item.price.toLocaleString()} uzs</h2>
