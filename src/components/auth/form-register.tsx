@@ -23,8 +23,8 @@ const FormRegister: React.FC<FormRegisterProps> = ({setIsModalOpen}) => {
             localStorage.setItem('user', JSON.stringify(res.data.user))
             localStorage.setItem('token', res.data.accessToken)
         }).catch((err) => {
-            if(err.status == 409) {
-                toast.error('User Not found, please Try again')
+            if(err.status == 400) {
+                toast.error('Email allaqachon ro\'yxatdan o\'tgan')
             } else {
                 toast.error('Something went wrong')
             }
@@ -62,7 +62,7 @@ const FormRegister: React.FC<FormRegisterProps> = ({setIsModalOpen}) => {
             name="password"
             rules={[{ required: true, message: 'Please enter your password!' }]}
             >
-                <Input.Password style={{padding: '10px'}} placeholder='Enter Your Email'/>
+                <Input.Password style={{padding: '10px'}} placeholder='Enter Your Password'/>
             </Form.Item>
 
             <Form.Item label={null}>

@@ -12,3 +12,10 @@ export {default as AksiyaProducts} from "./home/popular-products/aksiya-products
 export {default as LastSeenProducts} from "./home/popular-products/last-seen-products"
 export {default as ProductDetails} from "./products/product-detials/product-details"
 export {default as HeadphoneSection} from "./home/headphone/headphone"
+export {default as ProfileSection} from './profile/profile'
+export {default as AccountDetails} from './profile/account-details'
+export {default as Address} from './profile/address'
+export {default as MyProducts} from './profile/my-products'
+export {default as Profile} from './profile/profile'
+export {default as Wishlist} from './profile/wishlist'
+export {default as TrackOrder} from './profile/track-order'

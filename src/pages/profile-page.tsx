@@ -1,6 +1,11 @@
+import { LastSeenProducts, ProfileSection } from "@/components"
+
 function ProfilePage() {
   return (
-    <div>ProfilePage</div>
+    <>
+        <ProfileSection/>
+        <LastSeenProducts/>  
+    </>
   )
 }
 

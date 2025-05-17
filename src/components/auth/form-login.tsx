@@ -3,6 +3,7 @@ import { Button, Form, Input } from 'antd';
 import axios from 'axios';
 import { Dispatch, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 type FieldType = {
   email?: string;
@@ -14,6 +15,7 @@ type FormLoginProps = {
 
 
 const FormLogin: React.FC<FormLoginProps> = ({setIsModalOpen}) => {
+    const navigate = useNavigate()
     const onFinish:  FormProps<FieldType>['onFinish'] = async (values) => {
         const {email, password} = values
         await axios.post(`https://api.ashyo.fullstackdev.uz/auth/login`, {password, email}).then((res) => {
@@ -29,6 +31,11 @@ const FormLogin: React.FC<FormLoginProps> = ({setIsModalOpen}) => {
             }
         })
     };
+    
+    function handleResetPasswordPage() {
+        navigate("/forgot-password")
+        setIsModalOpen(false)
+    }
     return (
         <Form
             name="basic"
@@ -52,23 +59,23 @@ const FormLogin: React.FC<FormLoginProps> = ({setIsModalOpen}) => {
             name="password"
             rules={[{ required: true, message: 'Please enter your password!' }]}
             >
-            <Input.Password style={{padding: '10px'}} placeholder='Enter Your Email'/>
+                <Input.Password style={{padding: '10px'}} placeholder='Enter Your Email'/>
             </Form.Item>
-
+            <p onClick={handleResetPasswordPage} className='text-[15px] cursor-pointer font-[500] text-[#27c9ff]'>Forget Passowrd?</p>
             <Form.Item label={null}>
-            <Button 
-                htmlType="submit"
-                style={{
-                width: '100%',
-                backgroundColor: '#134e9b',
-                color: 'white',
-                border: 'none',
-                padding: '26px 0',
-                marginTop: '30px'
-                }}
-            >
-                Login
-            </Button>
+                <Button 
+                    htmlType="submit"
+                    style={{
+                    width: '100%',
+                    backgroundColor: '#134e9b',
+                    color: 'white',
+                    border: 'none',
+                    padding: '26px 0',
+                    marginTop: '30px'
+                    }}
+                >
+                    Login
+                </Button>
             </Form.Item>
         </Form>
     )
