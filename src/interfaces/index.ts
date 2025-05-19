@@ -38,6 +38,9 @@ export interface Iproduct {
     summary: string
     updatedAt: string
 }
+export interface ProductsResponse {
+  items: Iproduct[];
+}
 
 export interface Ibrands {
     createdAt: string
@@ -49,6 +52,10 @@ export interface Ibrands {
     updatedAt: string
 }
 
-export interface ProductsResponse {
-  items: Iproduct[];
+export interface userData {
+    email: string
+    fullname: string
+    id: number
+    is_verified: boolean
+    role: string
 }

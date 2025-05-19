@@ -97,7 +97,7 @@ function Header() {
             <img src="/home/header/law.svg" alt="law" />
             <h2 className="absolute w-5 h-5 bg-[#E81504] text-[#fff] flex items-center justify-center rounded-full font-[700] text-[10px] top-[-8px] right-[-8px]">0</h2>
           </Link>
-          <Link to={'/'} className="rounded-[6px] w-[50px] h-12 flex justify-center items-center bg-[#EBEFF3] relative">
+          <Link to={'/liked-products'} className="rounded-[6px] w-[50px] h-12 flex justify-center items-center bg-[#EBEFF3] relative">
             <img src="/home/header/heart.svg" alt="law" />
             <h2 className="absolute w-5 h-5 bg-[#E81504] text-[#fff] flex items-center justify-center rounded-full font-[700] text-[10px] top-[-8px] right-[-8px]">0</h2>
           </Link>

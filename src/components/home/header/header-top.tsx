@@ -1,7 +1,19 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { GrLocation } from "react-icons/gr";
 
 function HeaderTop() {
+  const { t, i18n } = useTranslation();
+  const [selectedLanguage, setSelectedLanguage] = useState("uz")
+  
+  // const changeLang = (lang: string) => {
+  // };
+  const handleChange = (value:string) => {
+    setSelectedLanguage(value)
+    i18n.changeLanguage(value)
+    console.log(value)
+  }
   return (
     <header className="bg-[#EBEFF3] py-[10px] px-5 md:px-10 hidden sm:inline-block w-full">
       <div className="main-container flex items-center justify-between">
@@ -24,13 +36,14 @@ function HeaderTop() {
         </div>
         <div className="flex gap-[38px] items-center">
           <a href="#" className="font-[600] text-[14px] leading-[130%] text-[#545D6A]">+998 (71) 123-45-67</a>
-          <Select>
+          <p>{t("welcome")}</p>
+          <Select value={selectedLanguage} onValueChange={(e) => handleChange(e)}>
             <SelectTrigger className="w-[40px] outline-none border-none shadow-none gap-[1px] p-[0] h-[20px]">
               <SelectValue placeholder="uz"/>
             </SelectTrigger>
             <SelectContent className="p-[1px]">
               <SelectGroup>
-                <SelectItem value="us" defaultChecked>Uz</SelectItem>
+                <SelectItem value="uz" defaultChecked>Uz</SelectItem>
                 <SelectItem value="en">En</SelectItem>
                 <SelectItem value="ru">Ru</SelectItem>
               </SelectGroup>

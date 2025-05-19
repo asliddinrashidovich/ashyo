@@ -1,6 +1,6 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
 import MainLayout from "./layout/main-layout"
-import { HomePage, NotFoundPage, ProductDetailsPage, ProductsPage, ProfilePage, ResetPassword, VerifyOtp } from "./pages"
+import { HomePage, LikedProducts, NotFoundPage, ProductDetailsPage, ProductsPage, ProfilePage, ResetPassword, VerifyOtp } from "./pages"
 import { AccountDetails, Address, MyProducts, TrackOrder, Wishlist } from "./components"
 import { ReactNode } from 'react';
 
@@ -35,6 +35,7 @@ function App() {
         </Route>
         <Route path="forgot-password" element={<ResetPassword/>}/>
         <Route path="forgot-password/verify-otp" element={<VerifyOtp/>}/>
+        <Route path="liked-products" element={<LikedProducts/>}/>
       </Route>
     )
   )

@@ -1,11 +1,13 @@
 import { Link, useSearchParams } from "react-router-dom"
-import { FaRegHeart } from "react-icons/fa6";
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { Iproduct, ProductsResponse } from "@/interfaces";
+import { Iproduct, ProductsResponse, userData } from "@/interfaces";
+import { useState } from "react";
 
 function CardsSection() {
     const [searchParams] = useSearchParams()
+    const [isLikesItem, setIsLikedItem] = useState(false)
     const paramsBrand = Number(searchParams.get('brand')) || ""
     const fetchCategoryProducts = async () => {
         const res = await axios.get(`https://api.ashyo.fullstackdev.uz/products?brand_id=${paramsBrand}`);
@@ -13,17 +15,29 @@ function CardsSection() {
     };
 
     const { data: productsData} = useQuery<ProductsResponse>({
-        queryKey: ["productsQuery", paramsBrand],
+        queryKey: ["productsQuery", paramsBrand, isLikesItem],
         queryFn: fetchCategoryProducts,
     });
+    
+    const userDataRaw = localStorage.getItem('user');
+    const user: userData | null = userDataRaw ? JSON.parse(userDataRaw) : null;
+    const addProductLike = async (id: number) => {
+        await axios.post(`https://api.ashyo.fullstackdev.uz/like/toggle`, {userId: user?.id, productId: id}).then((res) => {
+            console.log(res)
+            setIsLikedItem((prev) => prev ? false : true)
+        }).catch((err) => {
+            console.log(err)
+        })
+    };
+    console.log(productsData)
   return ( 
     <div className="w-full md:w-[calc(100%-220px)] lg:w-[calc(100%-280px)] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-[30px] gap-y-[40px]">
         {productsData?.items?.map((item: Iproduct) => (
             <div key={item.id}>
                 <div className="bg-[#EBEFF3] relative rounded-[8px] w-full h-[280px] mb-[16px] flex justify-center items-center hover">
                     <img className="max-w-[200px]" src={item.image} alt={item.image}/>
-                    <button className="cursor-pointer absolute top-5 right-6">
-                        <FaRegHeart className="text-[25px] text-[#545D6A]"/>
+                    <button onClick={() => addProductLike(item.id)} className="cursor-pointer absolute top-5 right-6">
+                        {item.is_liked ? <FaHeart className="text-[25px] text-[red]"/> : <FaRegHeart className="text-[25px] text-[#545D6A]"/>}
                     </button>
                 </div>
                 <p className="mb-[28px] text-[14px] font-[400] leading-[19px] text-[#545D6A] line-clamp-2">{item.description}</p>
