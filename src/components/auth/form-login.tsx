@@ -20,7 +20,6 @@ const FormLogin: React.FC<FormLoginProps> = ({setIsModalOpen}) => {
         const {email, password} = values
         await axios.post(`https://api.ashyo.fullstackdev.uz/auth/login`, {password, email}).then((res) => {
             setIsModalOpen(false)
-            console.log(res)
             localStorage.setItem('user', JSON.stringify(res.data.user))
             localStorage.setItem('token', res.data.accessToken)
         }).catch((err) => {

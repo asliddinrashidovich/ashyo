@@ -11,15 +11,13 @@ type FieldType = {
 
 function ResetPassword() {
   const navigate = useNavigate()
-  // const [searchParams, setSearchParams] = useSearchParams()
   const onFinish: FormProps<FieldType>['onFinish'] = async ({email}) => {
-    // if (!email) return toast.error("Email is required");
+    if (!email) return toast.error("Email is required");
 
     await axios.post("https://api.ashyo.fullstackdev.uz/auth/send-otp", {email}).then(() => {
       toast.success("We send a code to your email, Please Check your email")
-      // searchParams.set("email", email)
-      // setSearchParams(searchParams)
-      navigate("forgot-password/verify-otp")
+      localStorage.setItem("email" ,email)
+      navigate("/forgot-password/verify-otp")
     }).catch(() => {
       toast.error("Something went wrong")
     })
@@ -54,9 +52,6 @@ function ResetPassword() {
           </Form.Item>
 
         </Form>
-        <Button>
-          Back to Login 
-        </Button>
       </div>
     </div>
   )

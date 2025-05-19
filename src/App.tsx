@@ -10,7 +10,7 @@ type ProtectedRouteProps = {
 
 function App() {
   const isAuth = () => {
-    return localStorage.getItem('user')
+    return localStorage.getItem('token')
   }
   function ProtectedRoute({ children}: ProtectedRouteProps) {
     if(isAuth()) {

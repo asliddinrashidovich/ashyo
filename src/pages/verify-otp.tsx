@@ -2,7 +2,7 @@ import type { FormProps } from 'antd';
 import { Button, Form, Input } from 'antd';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 type OtpType = {
   otp?: string
@@ -10,14 +10,15 @@ type OtpType = {
 }
 
 function VerifyOtp() {
-    const [searchParams] = useSearchParams()
-    const emailInput = searchParams.get("email")
+    const emailInput = localStorage.getItem("email")
+    const navigate = useNavigate()
     const verifyOtp: FormProps<OtpType>['onFinish'] = async ({otp}) => {
-        await axios.post("https://api.ashyo.fullstackdev.uz/auth/verify-otp", {email: emailInput, otp}).then((res) => {
-        toast.success("Success")
-        console.log(res)
+            await axios.post("https://api.ashyo.fullstackdev.uz/auth/verify-otp", {email: emailInput, otp}).then((res) => {
+            toast.success("Emailingiz tasdiqlandi, Kirishingiz mumkin")
+            localStorage.setItem('token', res.data.accessToken)
+            navigate('/profile')
         }).catch(() => {
-        toast.error("Something went wrong")
+            toast.error("Something went wrong")
         })
     };
   return (
