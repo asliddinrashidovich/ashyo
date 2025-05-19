@@ -3,13 +3,17 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // import required modules
 import { FreeMode, Navigation, Pagination } from 'swiper/modules';
 import { Link, useNavigate } from 'react-router-dom';
-import { Iproduct, ProductsResponse } from '@/interfaces';
-import { FaRegHeart } from 'react-icons/fa6';
+import { Iproduct, ProductsResponse, userData } from '@/interfaces';
+import { FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useState } from 'react';
 
 export default function AksiyaProducts() {
     const navigate = useNavigate()
+    const [isLikesItem, setIsLikedItem] = useState(false)
+    const userDataRaw = localStorage.getItem('user');
+    const user: userData | null = userDataRaw ? JSON.parse(userDataRaw) : null;
     function handleClick(id: number) {
         navigate(`/products/${id}`)
     }
@@ -19,9 +23,17 @@ export default function AksiyaProducts() {
     };
 
     const { data: productsData} = useQuery<ProductsResponse>({
-        queryKey: ["productsQueryAksiya"],
+        queryKey: ["productsQueryAksiya", isLikesItem],
         queryFn: fetchCategoryProducts,
     });
+    const addProductLike = async (id: number) => {
+        await axios.post(`https://api.ashyo.fullstackdev.uz/like/toggle`, {userId: user?.id, productId: id}).then((res) => {
+            console.log(res)
+            setIsLikedItem((prev) => prev ? false : true)
+        }).catch((err) => {
+            console.log(err)
+        })
+    };
   return (
     <div className="relative overflow-hidden pb-[80px]">
         <div className="swiper-button-prev absolute left-[-10px] top-[40%] z-10 cursor-pointer">
@@ -65,11 +77,11 @@ export default function AksiyaProducts() {
         
        {productsData?.items?.map((item: Iproduct) => (
             <SwiperSlide key={item.id}>
-                <div key={item.id} className='user-none group'>
-                    <div onClick={() => handleClick(item.id)} className="bg-[#EBEFF3] relative rounded-[8px] w-full h-[280px] mb-[16px] flex cursor-pointer justify-center items-center hover">
-                        <img className="max-w-[200px] group-hover:scale-[105%] transition-all duration-200" src={item.image} alt={item.image}/>
-                        <button className="cursor-pointer absolute top-5 right-6">
-                            <FaRegHeart className="text-[25px] text-[#545D6A]"/>
+                <div key={item.id} className='user-none '>
+                    <div  className="bg-[#EBEFF3] group relative rounded-[8px] w-full h-[280px] mb-[16px] flex cursor-pointer justify-center items-center hover">
+                        <img onClick={() => handleClick(item.id)} className="max-w-[200px] group-hover:scale-[105%] transition-all duration-200" src={item.image} alt={item.image}/>
+                         <button onClick={() => addProductLike(item.id)} className="cursor-pointer absolute top-5 right-6">
+                            {item.is_liked ? <FaHeart className="text-[25px] text-[red]"/> : <FaRegHeart className="text-[25px] text-[#545D6A]"/>}
                         </button>
                     </div>
                     <p onClick={() => handleClick(item.id)} className="cursor-pointer hover:underline mb-[28px] text-[14px] font-[400] leading-[19px] text-[#545D6A] line-clamp-2">{item.description}</p>

@@ -8,6 +8,8 @@ import { useState } from "react";
 function CardsSection() {
     const [searchParams] = useSearchParams()
     const [isLikesItem, setIsLikedItem] = useState(false)
+    const userDataRaw = localStorage.getItem('user');
+    const user: userData | null = userDataRaw ? JSON.parse(userDataRaw) : null;
     const paramsBrand = Number(searchParams.get('brand')) || ""
     const fetchCategoryProducts = async () => {
         const res = await axios.get(`https://api.ashyo.fullstackdev.uz/products?brand_id=${paramsBrand}`);
@@ -19,8 +21,6 @@ function CardsSection() {
         queryFn: fetchCategoryProducts,
     });
     
-    const userDataRaw = localStorage.getItem('user');
-    const user: userData | null = userDataRaw ? JSON.parse(userDataRaw) : null;
     const addProductLike = async (id: number) => {
         await axios.post(`https://api.ashyo.fullstackdev.uz/like/toggle`, {userId: user?.id, productId: id}).then((res) => {
             console.log(res)

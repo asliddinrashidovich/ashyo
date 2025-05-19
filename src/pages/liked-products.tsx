@@ -6,9 +6,8 @@ import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 function LikedProducts() {
-    const userDataRaw = localStorage.getItem('user');
     const [isLikesItem, setIsLikedItem] = useState(false)
-
+    const userDataRaw = localStorage.getItem('user');
     const user: userData | null = userDataRaw ? JSON.parse(userDataRaw) : null;
     const fetchLikedProducts = async () => {
         const res = await axios.get(`https://api.ashyo.fullstackdev.uz/like/user/${user?.id}`);

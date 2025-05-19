@@ -9,6 +9,9 @@ import { Box, Tab, Tabs } from "@mui/material";
 import FormLogin from "@/components/auth/form-login";
 import {Toaster} from "react-hot-toast"
 import FormRegister from "@/components/auth/form-register";
+import axios from "axios";
+import { Iproduct, userData } from "@/interfaces";
+import { useQuery } from "@tanstack/react-query";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -69,6 +72,18 @@ function Header() {
     setOpenSideBar(false)
   }
 
+  const userDataRaw = localStorage.getItem('user');
+  const user: userData | null = userDataRaw ? JSON.parse(userDataRaw) : null;
+  const fetchLikedProductsLength = async () => {
+      const res = await axios.get(`https://api.ashyo.fullstackdev.uz/like/user/${user?.id}`);
+      return res.data;
+  };
+
+  const { data: productsDataLen} = useQuery<Iproduct[]>({
+      queryKey: ["liked-products-length"],
+      queryFn: fetchLikedProductsLength,
+  });
+  console.log(productsDataLen)
   return (
     <div className="bg-[#fff] py-[17px] px-5 md:px-10 relative">
       <div><Toaster
@@ -99,7 +114,7 @@ function Header() {
           </Link>
           <Link to={'/liked-products'} className="rounded-[6px] w-[50px] h-12 flex justify-center items-center bg-[#EBEFF3] relative">
             <img src="/home/header/heart.svg" alt="law" />
-            <h2 className="absolute w-5 h-5 bg-[#E81504] text-[#fff] flex items-center justify-center rounded-full font-[700] text-[10px] top-[-8px] right-[-8px]">0</h2>
+            <h2 className="absolute w-5 h-5 bg-[#E81504] text-[#fff] flex items-center justify-center rounded-full font-[700] text-[10px] top-[-8px] right-[-8px]">{productsDataLen?.length}</h2>
           </Link>
           <Link to={'/'} className="rounded-[6px] w-[50px] h-12 flex justify-center items-center bg-[#EBEFF3] relative">
             <img src="/home/header/shopping-bag.svg" alt="law" />
