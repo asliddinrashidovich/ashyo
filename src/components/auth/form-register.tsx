@@ -32,7 +32,7 @@ const FormRegister: React.FC<FormRegisterProps> = ({setIsModalOpen}) => {
     };
     return (
         <Form
-            name="basic"
+            name="account-details"
             style={{ width: '100%'}}
             initialValues={{
                 fullname: "",
@@ -59,8 +59,8 @@ const FormRegister: React.FC<FormRegisterProps> = ({setIsModalOpen}) => {
             </Form.Item>
 
             <Form.Item
-            name="password"
-            rules={[{ required: true, message: 'Please enter your password!' }]}
+                name="password"
+                rules={[{ required: true, message: 'Please enter your password!' }]}
             >
                 <Input.Password style={{padding: '10px'}} placeholder='Enter Your Password'/>
             </Form.Item>
