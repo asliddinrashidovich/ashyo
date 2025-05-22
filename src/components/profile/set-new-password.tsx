@@ -20,47 +20,47 @@ function SetNewPassword() {
             toast.error("Something went wrong")
         })
     };
-  return (
-    <div className="px-5 md:px-10 pt-[10px]">
-        <div className="main-container">
-            <h2 className="text-[25px] font-[600] mb-[15px]">Verify Your Email, end set new password</h2>
-            <Form
-                name="tasdiqlash codi"
-                style={{ maxWidth: 500 }}
-                initialValues={{ 
-                    otp: "",
-                    new_password: ""
-                }}
-                onFinish={verifyOtp}
-                autoComplete="off"
-            >
-                
-                <p className='mb-[10px]'>Emailingizga yuborilgan, tasdiqlash kodini kiriting</p>
-                <Form.Item<OtpType>
-                    name="otp"
-                    rules={[{ required: true, message: 'Please input your otp!' }]}
-                    >
-                    <Input placeholder='Otp kodi'/>
-                </Form.Item>
+    return (
+        <div className="px-5 md:px-10 pt-[10px]">
+            <div className="main-container">
+                <h2 className="text-[25px] font-[600] mb-[15px]">Verify Your Email, end set new password</h2>
+                <Form
+                    name="tasdiqlash codi"
+                    style={{ maxWidth: 500 }}
+                    initialValues={{ 
+                        otp: "",
+                        new_password: ""
+                    }}
+                    onFinish={verifyOtp}
+                    autoComplete="off"
+                >
+                    
+                    <p className='mb-[10px]'>Emailingizga yuborilgan, tasdiqlash kodini kiriting</p>
+                    <Form.Item<OtpType>
+                        name="otp"
+                        rules={[{ required: true, message: 'Please input your otp!' }]}
+                        >
+                        <Input placeholder='Otp kodi'/>
+                    </Form.Item>
 
-                <p className='mb-[10px]'>Yangi password qo'ying</p>
-                <Form.Item<OtpType>
-                    name="new_password"
-                    rules={[{ required: true, message: 'Please input your password!' }]}
-                    >
-                    <Input placeholder='New Password'/>
-                </Form.Item>
+                    <p className='mb-[10px]'>Yangi password qo'ying</p>
+                    <Form.Item<OtpType>
+                        name="new_password"
+                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        >
+                        <Input placeholder='New Password'/>
+                    </Form.Item>
 
-                <Form.Item label={null}>
-                <Button type="primary" htmlType="submit">
-                    Submit
-                </Button>
-                </Form.Item>
+                    <Form.Item label={null}>
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
+                    </Form.Item>
 
-            </Form>
+                </Form>
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default SetNewPassword
