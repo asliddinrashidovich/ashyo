@@ -1,7 +1,7 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
 import MainLayout from "./layout/main-layout"
 import { HomePage, LikedProducts, NotFoundPage, ProductDetailsPage, ProductsPage, ProfilePage, ResetPassword, VerifyOtp } from "./pages"
-import { AccountDetails, Address, MyProducts, SendOtpPage, SetNewPassword, TrackOrder, Wishlist } from "./components"
+import { AccountDetails, Address, MyProducts, SetNewPassword, TrackOrder, Wishlist } from "./components"
 import { ReactNode } from 'react';
 
 type ProtectedRouteProps = {
@@ -28,7 +28,6 @@ function App() {
         <Route path="profile" element={<ProfilePage/>}/>
         <Route path="profile/" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>}>
           <Route index element={<ProtectedRoute><AccountDetails/></ProtectedRoute>}/>
-          <Route path="resetpassword" element={<ProtectedRoute><SendOtpPage/></ProtectedRoute>}/>
           <Route path="resetpassword/set-new-password" element={<ProtectedRoute><SetNewPassword/></ProtectedRoute>}/>
           <Route path="my-products" element={<ProtectedRoute><MyProducts/></ProtectedRoute>}/>
           <Route path="address" element={<ProtectedRoute><Address/></ProtectedRoute>}/>

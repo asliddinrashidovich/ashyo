@@ -1,4 +1,7 @@
+import { userData } from '@/interfaces';
 import { Button, Form, Input } from 'antd';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 type FieldType = {
@@ -10,21 +13,20 @@ type FieldNameType = {
 
 
 function AccountDetails() {
+  const userDataRaw = localStorage.getItem('user');
+  const user: userData | null = userDataRaw ? JSON.parse(userDataRaw) : null;
   const navigate = useNavigate()
-  // const onFinish: FormProps<FieldType>['onFinish'] = async ({email}) => {
-  //   // if (!email) return toast.error("Email is required");
 
-  //   // await axios.post("https://api.ashyo.fullstackdev.uz/auth/send-otp", {email}).then(() => {
-  //   //   toast.success("We send a code to your email, Please Check your email")
-  //   //   localStorage.setItem("email" , email)
-  //   //   navigate("/forgot-password/verify-otp")
-  //   // }).catch(() => {
-  //   //   toast.error("Something went wrong")
-  //   // })
-  // };
-  function handleClick() {
-    navigate("/profile/resetpassword")
-  }
+  const handleClick = async () => {
+    if (!user?.email) return toast.error("Email is required");
+
+    await axios.post("https://api.ashyo.fullstackdev.uz/auth/send-otp", {email: user?.email}).then(() => {
+      toast.success("We send a code to your email, Please Check your email")
+      navigate("/profile/resetpassword/set-new-password")
+    }).catch(() => {
+      toast.error("Something went wrong")
+    })
+  };
   
   
   return (
